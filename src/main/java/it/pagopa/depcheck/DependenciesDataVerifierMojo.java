@@ -84,8 +84,8 @@ public class DependenciesDataVerifierMojo extends DependenciesDataMojo {
 				throw new MojoExecutionException("SHA-256 verification failed.");
 			}
 		} catch (FileNotFoundException e) {
-			getLog().error("dep-sha256.json not found.");
-			throw new MojoFailureException("dep-sha256.json not found.");
+			getLog().error(fileName + " not found.");
+			throw new MojoFailureException(fileName + " not found.");
 		} catch (IOException e) {
 			getLog().error(e);
 			throw new MojoFailureException(e);

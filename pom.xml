@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.pagopa</groupId>
 	<artifactId>depcheck</artifactId>
-	<version>0.0.17-SNAPSHOT</version>
+	<version>0.0.18-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	<description>This Maven plugin verifies sha256 of project dependencies</description>
 	<developers>

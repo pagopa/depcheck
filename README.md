@@ -1,2 +1,2 @@
 # depcheck
-This Maven plugin verify sha256 of project dependencies.
+This Maven plugin verifies sha256 of project dependencies.

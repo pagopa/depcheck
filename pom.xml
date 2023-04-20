@@ -4,7 +4,7 @@
 	<artifactId>depcheck</artifactId>
 	<version>0.0.16-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
-	<description>This Maven plugin verify sha256 of project dependencies</description>
+	<description>This Maven plugin verifies sha256 of project dependencies</description>
 	<developers>
 		<developer>
 			<name>Antonio Tarricone</name>

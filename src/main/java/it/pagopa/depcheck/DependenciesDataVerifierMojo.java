@@ -13,35 +13,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.InstantiationStrategy;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-import org.apache.maven.project.MavenProject;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import it.pagopa.depcheck.bean.DependenciesData;
 import it.pagopa.depcheck.bean.Dependency;
-import it.pagopa.depcheck.util.DependenciesRetriever;
 
 /**
  * 
  * @author Antonio Tarricone
  */
 @Mojo(name = "verify", configurator = "", defaultPhase = LifecyclePhase.VALIDATE, aggregator = true, instantiationStrategy = InstantiationStrategy.PER_LOOKUP, requiresDependencyCollection = ResolutionScope.TEST, requiresDependencyResolution = ResolutionScope.TEST, requiresOnline = false, requiresProject = true, threadSafe = false)
-public class DependenciesDataVerifierMojo extends AbstractMojo {
-	/*
-	 * The Maven project.
-	 */
-	@Parameter(defaultValue = "${project}", required = true, readonly = true)
-	private MavenProject project;
-
+public class DependenciesDataVerifierMojo extends DependenciesDataMojo {
 	/**
 	 * The main method.
 	 */
@@ -49,14 +39,13 @@ public class DependenciesDataVerifierMojo extends AbstractMojo {
 		/*
 		 * Get dependencies.
 		 */
-		DependenciesRetriever retriever = new DependenciesRetriever(getLog());
-		List<Dependency> dependencies = retriever.retrieve(project);
+		List<Dependency> dependencies = retrieveDependencies();
 
 		/*
 		 * Load dependencies data.
 		 */
 		getLog().info("Loading dependencies data...");
-		try (JsonReader reader = new JsonReader(new FileReader(new File(project.getBasedir(), "dep-sha256.json")))) {
+		try (JsonReader reader = new JsonReader(new FileReader(new File(project.getBasedir(), fileName)))) {
 			DependenciesData dependenciesData = new GsonBuilder()
 				.disableHtmlEscaping()
 				.create()

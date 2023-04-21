@@ -76,29 +76,36 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 	 * @return
 	 */
 	protected List<Dependency> retrieveDependencies() {
-		getLog().info("Retrieving of " + project.getName() + " dependencies...");
+		return retrieveDependencies(project);
+	}
+	
+	/**
+	 * 
+	 * @param specProject
+	 * @return
+	 */
+	protected List<Dependency> retrieveDependencies(MavenProject specProject) {
+		getLog().info("Retrieving of " + specProject.getName() + " dependencies...");
 
 		Stream<Artifact> artifacts = null;
 		if (includePlugins) {
 			getLog().info("Plugins will be included.");
-			artifacts = Stream.of(project.getArtifacts().stream(), project.getPluginArtifacts().stream()).flatMap(a -> a);
+			artifacts = Stream.of(specProject.getArtifacts().stream(), specProject.getPluginArtifacts().stream()).flatMap(a -> a);
 		} else {
 			getLog().info("Plugins will not be included.");
-			artifacts = project.getArtifacts().stream();
+			artifacts = specProject.getArtifacts().stream();
 		}
 
 		List<Dependency> dependencies = artifacts.map(a -> {
 			try {
 				String sha256 = "";
-				String fileName = "";
 				if (a.getFile() == null) {
 					getLog().warn(String.format("SHA-256 of %s:%s:%s cannot be computed.", a.getGroupId(), a.getArtifactId(), a.getVersion()));
 				} else {
 					sha256 = calculateSha256(a.getFile());
-					fileName = a.getFile().getName();
 				}
 
-				Dependency dependency = new Dependency(a.getArtifactId(), a.getGroupId(), a.getVersion(), fileName, sha256);
+				Dependency dependency = new Dependency(a.getArtifactId(), a.getGroupId(), a.getVersion(), sha256);
 				getLog().info(dependency.toString());
 				return dependency;
 			} catch (NoSuchAlgorithmException | IOException e) {
@@ -108,9 +115,9 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 			}
 		}).toList();
 
-		if (includeParent && project.hasParent()) {
+		if (includeParent && specProject.hasParent()) {
 			getLog().info("Retrieving of parent dependencies...");
-			List<Dependency> parentDependencies = retrieveDependencies();
+			List<Dependency> parentDependencies = retrieveDependencies(specProject.getParent());
 			dependencies.addAll(parentDependencies);
 		}
 

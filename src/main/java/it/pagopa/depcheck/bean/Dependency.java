@@ -28,11 +28,6 @@ public class Dependency {
 	/*
 	 * 
 	 */
-	private String fileName;
-
-	/*
-	 * 
-	 */
 	private String sha256;
 
 	/**
@@ -45,14 +40,12 @@ public class Dependency {
 	 * @param artifactId
 	 * @param groupId
 	 * @param version
-	 * @param fileName
 	 * @param sha256
 	 */
-	public Dependency(String artifactId, String groupId, String version, String fileName, String sha256) {
+	public Dependency(String artifactId, String groupId, String version, String sha256) {
 		this.artifactId = artifactId;
 		this.groupId = groupId;
 		this.version = version;
-		this.fileName = fileName;
 		this.sha256 = sha256;
 	}
 
@@ -99,20 +92,6 @@ public class Dependency {
 	}
 
 	/**
-	 * @return the fileName
-	 */
-	public String getFileName() {
-		return fileName;
-	}
-
-	/**
-	 * @param fileName the fileName to set
-	 */
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	/**
 	 * @return the sha256
 	 */
 	public String getSha256() {
@@ -150,8 +129,6 @@ public class Dependency {
 			.append(groupId)
 			.append(", version=")
 			.append(version)
-			.append(", fileName=")
-			.append(fileName)
 			.append(", sha256=")
 			.append(sha256)
 			.append("]")

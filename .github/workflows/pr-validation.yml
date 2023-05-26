@@ -62,8 +62,8 @@ jobs:
           mkdir -p ${{ runner.temp }}/maveninst
           tar -xvf ${{ runner.temp }}/mavenfile.tar.gz -C ${{ runner.temp }}/maveninst
           export M2_HOME=${{ runner.temp }}/maveninst
-          export M2=$M2_HOME/bin 
-          export MAVEN_OPTS=-Xms256m -Xmx512m 
+          export M2=$M2_HOME/bin
+          export MAVEN_OPTS=-Xmx1g
           export PATH=$M2:$PATH
           mvn -version
 

@@ -63,7 +63,7 @@ jobs:
           tar -xvf ${{ runner.temp }}/mavenfile.tar.gz -C ${{ runner.temp }}/maveninst
           export M2_HOME=${{ runner.temp }}/maveninst
           export M2=$M2_HOME/bin 
-          export MAVEN_OPTS=-Xms256m -Xmx1g 
+          export MAVEN_OPTS=-Xms256m -Xmx512m 
           export PATH=$M2:$PATH
           mvn -version
 

@@ -1,0 +1,104 @@
+name: Release a new version
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  release:
+    if: github.event.pull_request.merged == true
+    
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      #
+      # Checkout the source code.
+      #
+      - name: Checkout the source code
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        with:
+          token: ${{ secrets.GIT_PAT }}
+          fetch-depth: 0
+
+      #
+      # Calculation of the new version (dry-run).
+      #
+      - name: Calculation of the new version (dry-run)
+        uses: cycjimmy/semantic-release-action@8e58d20d0f6c8773181f43eb74d6a05e3099571d
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          semantic_version: 19
+          branch: main
+          extra_plugins: |
+            @semantic-release/release-notes-generator@5f9d65debbb60057c0d35d3a198e41f5bf09cf0f
+            @semantic-release/git@3e934d45f97fd07a63617c0fc098c9ed3e67d97a
+          dry_run: true
+
+      #
+      # Setup JDK
+      #
+      - name: Download JDK and verify its hash
+        run: |
+          echo "e9458b38e97358850902c2936a1bb5f35f6cffc59da9fcd28c63eab8dbbfbc3b  ${{ runner.temp }}/jdkfile.tar.gz" >> ${{ runner.temp }}/jdkfile.sha256
+          curl -L "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.7_7.tar.gz" -o "${{ runner.temp }}/jdkfile.tar.gz"
+          sha256sum --check --status "${{ runner.temp }}/jdkfile.sha256"
+      
+      - name: Setup JDK 
+        uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
+        with:
+          distribution: "jdkfile"
+          jdkFile: "${{ runner.temp }}/jdkfile.tar.gz"
+          java-version: "17"
+      
+      #
+      # Update of pom.xml with the new version + Git add + commit + push of the updated pom.xml.
+      #
+      - name: Update of pom.xml with the new version + Git add + commit + push of the updated pom.xml
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          mvn versions:set -DnewVersion=${{ steps.semantic.outputs.new_release_version }} --no-transfer-progress
+          git config user.name "GitHub Workflow"
+          git config user.email "<>"
+          git add pom.xml
+          git commit -m "pom.xml updated with new version ${{ steps.semantic.outputs.new_release_version }}"
+          git push origin main
+
+      #
+      # Calculation of the new version (again) with tagging + releasing + etc.
+      #
+      - name: Calculation of the new version (again) with tagging + releasing + etc
+        if: steps.semantic.outputs.new_release_published == 'true'
+        uses: cycjimmy/semantic-release-action@8e58d20d0f6c8773181f43eb74d6a05e3099571d
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          semantic_version: 19
+          branch: main
+          extra_plugins: |
+            @semantic-release/release-notes-generator@5f9d65debbb60057c0d35d3a198e41f5bf09cf0f
+            @semantic-release/git@3e934d45f97fd07a63617c0fc098c9ed3e67d97a
+          dry_run: false
+
+      #
+      # Build
+      #
+      - name: Build
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          mvn clean install --no-transfer-progress
+
+      #
+      # Publish
+      #
+      - name: Publish
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

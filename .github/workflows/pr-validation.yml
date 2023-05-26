@@ -50,25 +50,5 @@ jobs:
           jdkFile: "${{ runner.temp }}/jdkfile.tar.gz"
           java-version: "17"
       
-      #- name: Download Maven and verify its hash
-      #  run: |
-      #    echo "809ef3220c6d179195c06c324cb9a6d34d8ecba566c5cfd8eb83167bc034117d  ${{ runner.temp }}/mavenfile.tar.gz" >> ${{ runner.temp }}/mavenfile.sha256
-      #    echo {{ runner.temp }}/mavenfile.sha256
-      #    curl -L "https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz" -o "${{ runner.temp }}/mavenfile.tar.gz"
-      #    sha256sum --check --status "${{ runner.temp }}/mavenfile.sha256"
-          
-      #- name: Setup Maven
-      #  run: |
-      #    mkdir -p ${{ runner.temp }}/maveninst
-      #    tar -xvf ${{ runner.temp }}/mavenfile.tar.gz -C ${{ runner.temp }}/maveninst
-      #    export M2=$M2_HOME/bin
-      #    export M2_HOME=${{ runner.temp }}/maveninst
-      #    export MAVEN_OPTS=-Xmx1g
-      #    export PATH=$M2:$PATH
-      #    mvn -version
-
-      - name: Maven version
-        run: mvn -version
-
       - name: Execute unit-testing
         run: mvn clean test --no-transfer-progress

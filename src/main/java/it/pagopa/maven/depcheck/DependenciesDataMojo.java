@@ -3,16 +3,13 @@
  *
  * 20 apr 2023
  */
-package it.pagopa.depcheck;
+package it.pagopa.maven.depcheck;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.maven.artifact.Artifact;
@@ -20,7 +17,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-import it.pagopa.depcheck.bean.Dependency;
+import it.pagopa.maven.depcheck.bean.Dependency;
+import it.pagopa.maven.depcheck.util.Sha256;
 
 /**
  * 
@@ -50,27 +48,7 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 	 */
 	@Parameter(property = "includeParent", required = false, defaultValue = "false")
 	protected boolean includeParent;
-	
-	/**
-	 * 
-	 * @param f
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 * @throws IOException
-	 */
-	private String calculateSha256(File f) throws NoSuchAlgorithmException, IOException {
-		byte[] buf = new byte[8192];
-		int n = 0;
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f))) {
-			while ((n = bis.read(buf)) > 0) {
-				digest.update(buf, 0, n);
-			}
-		}
-		byte[] sha256 = digest.digest();
-		return Base64.getUrlEncoder().encodeToString(sha256);
-	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -78,7 +56,7 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 	protected List<Dependency> retrieveDependencies() {
 		return retrieveDependencies(project);
 	}
-	
+
 	/**
 	 * 
 	 * @param specProject
@@ -88,12 +66,19 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 		getLog().info("Retrieving of " + specProject.getName() + " dependencies...");
 
 		Stream<Artifact> artifacts = null;
+
+		Set<Artifact> artifactSet = specProject.getArtifacts();
+
 		if (includePlugins) {
 			getLog().info("Plugins will be included.");
-			artifacts = Stream.of(specProject.getArtifacts().stream(), specProject.getPluginArtifacts().stream()).flatMap(a -> a);
+			Set<Artifact> pluginArtifactSet = specProject.getPluginArtifacts();
+			if (pluginArtifactSet == null) {
+				pluginArtifactSet = Set.of();
+			}
+			artifacts = Stream.of(artifactSet.stream(), pluginArtifactSet.stream()).flatMap(a -> a);
 		} else {
 			getLog().info("Plugins will not be included.");
-			artifacts = specProject.getArtifacts().stream();
+			artifacts = artifactSet.stream();
 		}
 
 		List<Dependency> dependencies = artifacts.map(a -> {
@@ -102,7 +87,7 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 				if (a.getFile() == null) {
 					getLog().warn(String.format("SHA-256 of %s:%s:%s cannot be computed.", a.getGroupId(), a.getArtifactId(), a.getVersion()));
 				} else {
-					sha256 = calculateSha256(a.getFile());
+					sha256 = Sha256.calculate(a.getFile());
 				}
 
 				Dependency dependency = new Dependency(a.getArtifactId(), a.getGroupId(), a.getVersion(), sha256);
@@ -113,7 +98,7 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 				getLog().error(e);
 				throw new RuntimeException(e);
 			}
-		}).toList();
+		}).collect(Collectors.toList());
 
 		if (includeParent && specProject.hasParent()) {
 			getLog().info("Retrieving of parent dependencies...");

@@ -1,0 +1,292 @@
+{
+  "dependencies": [
+    {
+      "artifactId": "maven-core",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "eUlEmkNRQ6idMWSJf3P718IAoMPIuVoK9oyB3T6Peug="
+    },
+    {
+      "artifactId": "maven-model",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "daSBALi0BXpbGpMFam4yk6cwha2SrQ98QUi28mfd8Hg="
+    },
+    {
+      "artifactId": "maven-settings",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "Jhf0vPV7ewabkzW76AC-mnDznQxGnj_RrGLk-veK2G4="
+    },
+    {
+      "artifactId": "maven-settings-builder",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "8_gkH_fwkfttwLNG69FyyCD1gliri5YCRp4OMTd_7lU="
+    },
+    {
+      "artifactId": "plexus-sec-dispatcher",
+      "groupId": "org.codehaus.plexus",
+      "version": "2.0",
+      "sha256": "hzE5lgxMeAF23aWAsAOixL-CGIvc5buZI04iTves_Os="
+    },
+    {
+      "artifactId": "plexus-cipher",
+      "groupId": "org.codehaus.plexus",
+      "version": "2.0",
+      "sha256": "mn8bXFqe_9Yerf2HMUUqL3ao55ER-sOR73XqgBvqIDo="
+    },
+    {
+      "artifactId": "maven-builder-support",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "_-UV0667ouXb5Vgbjv_sQcsDT0CePcF4T9poC9xGAxs="
+    },
+    {
+      "artifactId": "maven-repository-metadata",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "_kZQXv0VA7pIufdfJU2Z_pCv8mfBP4qq7f3kydg4VNc="
+    },
+    {
+      "artifactId": "maven-artifact",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "G2c9ds-HdzRMY1DViFM-o5Tdk_6aGyv_MZ2Wyw3edPI="
+    },
+    {
+      "artifactId": "maven-plugin-api",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "3mGFwQojTCGeCpXotnAsjLsocn_VfAmX2Kl-24n56KM="
+    },
+    {
+      "artifactId": "maven-model-builder",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "ODiFpM8aGwz5QbtNLcPTvN0lG0a2jAScJ3Ma9QszIpA="
+    },
+    {
+      "artifactId": "maven-resolver-provider",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "disdXelEKYX8zDivgJPM9TUaY90N9MH_Y3rK3KNPXrM="
+    },
+    {
+      "artifactId": "maven-resolver-impl",
+      "groupId": "org.apache.maven.resolver",
+      "version": "1.9.7",
+      "sha256": "6dlbsg2tDt7WXo3ilDBlH_8SGOPhH859AqK9IzcuY4s="
+    },
+    {
+      "artifactId": "maven-resolver-named-locks",
+      "groupId": "org.apache.maven.resolver",
+      "version": "1.9.7",
+      "sha256": "ZFsfbFnTJTXhGEh5yj-dRumDUiX738T1lfHymRwkHnU="
+    },
+    {
+      "artifactId": "maven-resolver-api",
+      "groupId": "org.apache.maven.resolver",
+      "version": "1.9.7",
+      "sha256": "iU6wfqeV83SjA33-6Vg-LSUp1SxkoqH92tiscXSewlI="
+    },
+    {
+      "artifactId": "maven-resolver-spi",
+      "groupId": "org.apache.maven.resolver",
+      "version": "1.9.7",
+      "sha256": "ddn8IobI5C2r1HLql28QZDLnrnPFtg8EDCuP-7oEN20="
+    },
+    {
+      "artifactId": "maven-resolver-util",
+      "groupId": "org.apache.maven.resolver",
+      "version": "1.9.7",
+      "sha256": "VRFq5uED5nCv92GqfUfbjTnoVwirY6ddx2QB5g_vPxw="
+    },
+    {
+      "artifactId": "maven-shared-utils",
+      "groupId": "org.apache.maven.shared",
+      "version": "3.3.4",
+      "sha256": "eSXZxaDiBA0kuPrj9hLrOZy__lg4szujaHd9x73fbdo="
+    },
+    {
+      "artifactId": "org.eclipse.sisu.plexus",
+      "groupId": "org.eclipse.sisu",
+      "version": "0.3.5",
+      "sha256": "fkxhCW1wgm8g96fVXFmlUo56pa0kfuLf5UTk3SX2p4Q="
+    },
+    {
+      "artifactId": "javax.annotation-api",
+      "groupId": "javax.annotation",
+      "version": "1.2",
+      "sha256": "WQmzlso6K-ENDuoyx073jYFuG06tId4deN4fiQ0DPgQ="
+    },
+    {
+      "artifactId": "org.eclipse.sisu.inject",
+      "groupId": "org.eclipse.sisu",
+      "version": "0.3.5",
+      "sha256": "xZlAELzc4dK9YDpNUMRxkd29eHXRFXsjqqJtM8gv2hM="
+    },
+    {
+      "artifactId": "guice",
+      "groupId": "com.google.inject",
+      "version": "5.1.0",
+      "sha256": "QTDlC_rEgJnIYPDZA7kYYMgaJJyQ84JF-P7Vj8gXvCY="
+    },
+    {
+      "artifactId": "aopalliance",
+      "groupId": "aopalliance",
+      "version": "1.0",
+      "sha256": "Ct3sZw_tzT8RPFyAkdeDKA0j9146y4QbYanNsHk3agg="
+    },
+    {
+      "artifactId": "guava",
+      "groupId": "com.google.guava",
+      "version": "30.1-jre",
+      "sha256": "5t0HL50_4CpGAGiDgL1CK9rBhMr2_iQYz90JNPCUMqo="
+    },
+    {
+      "artifactId": "failureaccess",
+      "groupId": "com.google.guava",
+      "version": "1.0.1",
+      "sha256": "oXHuTHNN0tqDfksWvp30Zhr6typBra8x64Tf2vk2yiY="
+    },
+    {
+      "artifactId": "javax.inject",
+      "groupId": "javax.inject",
+      "version": "1",
+      "sha256": "kcdwRKUMSBY2wy2Rb9ickRinIZU5BFLIEGUID5V95_8="
+    },
+    {
+      "artifactId": "plexus-utils",
+      "groupId": "org.codehaus.plexus",
+      "version": "3.5.1",
+      "sha256": "huAlXUyHnGG0gz7X8TEk6LtnnfR967EnMm59t91JoHs="
+    },
+    {
+      "artifactId": "plexus-classworlds",
+      "groupId": "org.codehaus.plexus",
+      "version": "2.6.0",
+      "sha256": "Uvd8XsSfeHycQX6-1dbv2ZIvRKIC8hc3bk-UwNdPNUk="
+    },
+    {
+      "artifactId": "plexus-interpolation",
+      "groupId": "org.codehaus.plexus",
+      "version": "1.26",
+      "sha256": "s7VBLOF4iRA-pWS838-fs9-lQDRP_qxrU4pzydcYJmI="
+    },
+    {
+      "artifactId": "plexus-component-annotations",
+      "groupId": "org.codehaus.plexus",
+      "version": "2.1.0",
+      "sha256": "veNhfOm1vPlYQSYEYIAEOvaks7rqQKOxU_Aue7wyrKw="
+    },
+    {
+      "artifactId": "commons-lang3",
+      "groupId": "org.apache.commons",
+      "version": "3.8.1",
+      "sha256": "2sgH9lsHaY_zmxsHv-89h64_1G2Ru_iivAKyqDFhb2g="
+    },
+    {
+      "artifactId": "slf4j-api",
+      "groupId": "org.slf4j",
+      "version": "1.7.36",
+      "sha256": "0-9XXj5JeWeNwBvx3M5RAhSTtNEft_G-itmCh3wWocA="
+    },
+    {
+      "artifactId": "maven-plugin-annotations",
+      "groupId": "org.apache.maven.plugin-tools",
+      "version": "3.8.1",
+      "sha256": "z4UDcx0Hzm7quXlEEGhJey-LDYlbOGGbTkwnv7kKs8Y="
+    },
+    {
+      "artifactId": "gson",
+      "groupId": "com.google.code.gson",
+      "version": "2.10.1",
+      "sha256": "QkHBSncnw0_uplB-yAExij1KkPBw5FJWgQefuU7kxZM="
+    },
+    {
+      "artifactId": "junit",
+      "groupId": "junit",
+      "version": "4.13.2",
+      "sha256": "jklbY0Rp1k-4rPo0laBly6zIoP_1XOHjEAe-TBbcV9M="
+    },
+    {
+      "artifactId": "hamcrest-core",
+      "groupId": "org.hamcrest",
+      "version": "1.3",
+      "sha256": "Zv3vkelzk0jfeglqo4SlaF9Oh1WEzOiThqekclHE2Ok="
+    },
+    {
+      "artifactId": "maven-plugin-testing-harness",
+      "groupId": "org.apache.maven.plugin-testing",
+      "version": "3.3.0",
+      "sha256": "SyUeiovDRWOVJUJ9vlTYs4ZQUGwc0s57gfpH5RRoWtY="
+    },
+    {
+      "artifactId": "commons-io",
+      "groupId": "commons-io",
+      "version": "2.2",
+      "sha256": "Z19gvRGoLUgXNlkf5AVMZkcfpUY9RWFmUv1xWFeSuoc="
+    },
+    {
+      "artifactId": "plexus-archiver",
+      "groupId": "org.codehaus.plexus",
+      "version": "2.2",
+      "sha256": "kVSl5uH5Whx01CVGcP7I16rNVpIRVxD-fhOBY2xr44w="
+    },
+    {
+      "artifactId": "plexus-container-default",
+      "groupId": "org.codehaus.plexus",
+      "version": "1.0-alpha-9-stable-1",
+      "sha256": "fHWGEoiHgsz-N2gjrufNzH4M2vsJf371ApWgsMOhbt8="
+    },
+    {
+      "artifactId": "classworlds",
+      "groupId": "classworlds",
+      "version": "1.1-alpha-2",
+      "sha256": "K_TlnzrNEG_qYUWpqI_olWUJ-LnA_dEeuW_udXJp4_M="
+    },
+    {
+      "artifactId": "plexus-io",
+      "groupId": "org.codehaus.plexus",
+      "version": "2.0.4",
+      "sha256": "WPKJi3BwnxIW-jr-aeCnzbQa1qOSeyUHpKiZQcnkq3Y="
+    },
+    {
+      "artifactId": "maven-compat",
+      "groupId": "org.apache.maven",
+      "version": "3.9.1",
+      "sha256": "1cJlxF6Ph-msxwj9FskXg66KeQXHBkeKfAwRFg-olXA="
+    },
+    {
+      "artifactId": "wagon-provider-api",
+      "groupId": "org.apache.maven.wagon",
+      "version": "3.5.3",
+      "sha256": "XnIAAziUXtPpb45PV40dBnLhr34ZwOkBQZeuWzGvPvQ="
+    },
+    {
+      "artifactId": "mockito-core",
+      "groupId": "org.mockito",
+      "version": "5.3.1",
+      "sha256": "N_TbrtJf-mve2rp4dGxEniJLEF1W_O3uh1WTZkLZkqg="
+    },
+    {
+      "artifactId": "byte-buddy",
+      "groupId": "net.bytebuddy",
+      "version": "1.14.4",
+      "sha256": "euKzmsIwvp4-Cc4CBAbAF_-M66BurweMYqiMIYoP8rQ="
+    },
+    {
+      "artifactId": "byte-buddy-agent",
+      "groupId": "net.bytebuddy",
+      "version": "1.14.4",
+      "sha256": "-9GrPbQ8bHi4gEkIy5W2VlF_XILn_ejSVdi9zu9BLXA="
+    },
+    {
+      "artifactId": "objenesis",
+      "groupId": "org.objenesis",
+      "version": "3.3",
+      "sha256": "At_QsEOaVZHjW3CO0vVHTrCUj1Or90Y36Vm45O9pv-s="
+    }
+  ]
+}

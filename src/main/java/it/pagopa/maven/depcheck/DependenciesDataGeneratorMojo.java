@@ -3,7 +3,7 @@
  *
  * 20 apr 2023
  */
-package it.pagopa.depcheck;
+package it.pagopa.maven.depcheck;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 
 import com.google.gson.GsonBuilder;
 
-import it.pagopa.depcheck.bean.DependenciesData;
-import it.pagopa.depcheck.bean.Dependency;
+import it.pagopa.maven.depcheck.bean.DependenciesData;
+import it.pagopa.maven.depcheck.bean.Dependency;
 
 /**
  * 
@@ -51,6 +51,7 @@ public class DependenciesDataGeneratorMojo extends DependenciesDataMojo {
 		 */
 		File depSha256 = new File(project.getBasedir(), fileName);
 		try {
+			depSha256.getParentFile().mkdirs();
 			depSha256.createNewFile();
 			try (PrintWriter out = new PrintWriter(depSha256)) {
 				out.print(json);

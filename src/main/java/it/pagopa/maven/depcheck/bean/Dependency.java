@@ -3,13 +3,13 @@
  *
  * 20 apr 2023
  */
-package it.pagopa.depcheck.bean;
+package it.pagopa.maven.depcheck.bean;
 
 /**
  * 
  * @author Antonio Tarricone
  */
-public class Dependency {
+public class Dependency implements Comparable<Dependency> {
 	/*
 	 * 
 	 */
@@ -50,59 +50,10 @@ public class Dependency {
 	}
 
 	/**
-	 * @return the artifactId
-	 */
-	public String getArtifactId() {
-		return artifactId;
-	}
-
-	/**
-	 * @param artifactId the artifactId to set
-	 */
-	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
-	}
-
-	/**
-	 * @return the groupId
-	 */
-	public String getGroupId() {
-		return groupId;
-	}
-
-	/**
-	 * @param groupId the groupId to set
-	 */
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
-
-	/**
-	 * @return the version
-	 */
-	public String getVersion() {
-		return version;
-	}
-
-	/**
-	 * @param version the version to set
-	 */
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	/**
 	 * @return the sha256
 	 */
 	public String getSha256() {
 		return sha256;
-	}
-
-	/**
-	 * @param sha256 the sha256 to set
-	 */
-	public void setSha256(String sha256) {
-		this.sha256 = sha256;
 	}
 
 	/**
@@ -133,5 +84,23 @@ public class Dependency {
 			.append(sha256)
 			.append("]")
 			.toString();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int compareTo(Dependency o) {
+		int c = groupId.compareTo(o.groupId);
+		if (c == 0) {
+			c = artifactId.compareTo(o.artifactId);
+			if (c == 0) {
+				c = version.compareTo(o.version);
+				if (c == 0) {
+					c = sha256.compareTo(o.sha256);
+				}
+			}
+		}
+		return c;
 	}
 }

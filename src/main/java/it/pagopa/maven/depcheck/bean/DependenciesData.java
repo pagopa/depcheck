@@ -3,8 +3,9 @@
  *
  * 20 apr 2023
  */
-package it.pagopa.depcheck.bean;
+package it.pagopa.maven.depcheck.bean;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,9 +39,17 @@ public class DependenciesData {
 	}
 
 	/**
-	 * @param dependencies the dependencies to set
+	 * 
 	 */
-	public void setDependencies(List<Dependency> dependencies) {
-		this.dependencies = dependencies;
+	public void sort() {
+		Collections.sort(dependencies);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return new StringBuilder("DependenciesData [dependencies=").append(dependencies).append("]").toString();
 	}
 }

@@ -52,10 +52,10 @@ jobs:
       
       - name: Download Maven and verify its hash
         run: |
-          echo "900bdeeeae550d2d2b3920fe0e00e41b0069f32c019d566465015bdd1b3866395cbe016e22d95d25d51d3a5e614af2c83ec9b282d73309f644859bbad08b63db  ${{ runner.temp }}/mavenfile.tar.gz" >> ${{ runner.temp }}/mavenfile.sha512
-          echo {{ runner.temp }}/mavenfile.sha512
+          echo "809ef3220c6d179195c06c324cb9a6d34d8ecba566c5cfd8eb83167bc034117d  ${{ runner.temp }}/mavenfile.tar.gz" >> ${{ runner.temp }}/mavenfile.sha256
+          echo {{ runner.temp }}/mavenfile.sha256
           curl -L "https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz" -o "${{ runner.temp }}/mavenfile.tar.gz"
-          sha256sum --check --status "${{ runner.temp }}/mavenfile.sha512"
+          sha256sum --check --status "${{ runner.temp }}/mavenfile.sha256"
           
       - name: Setup Maven
         run: |

@@ -39,30 +39,29 @@ jobs:
 
       - name: Download JDK and verify its hash
         run: |
-          echo "e9458b38e97358850902c2936a1bb5f35f6cffc59da9fcd28c63eab8dbbfbc3b  ${{ runner.temp }}/jdk.tar.gz" >> ${{ runner.temp }}/jdk.sha256
-          echo {{ runner.temp }}/jdk.sha256
-          curl -L "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.7_7.tar.gz" -o "${{ runner.temp }}/jdk.tar.gz"
-          sha256sum --check --status "${{ runner.temp }}/jdk.sha256"
+          echo "e9458b38e97358850902c2936a1bb5f35f6cffc59da9fcd28c63eab8dbbfbc3b  ${{ runner.temp }}/jdkfile.tar.gz" >> ${{ runner.temp }}/jdkfile.sha256
+          curl -L "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.7%2B7/OpenJDK17U-jdk_x64_linux_hotspot_17.0.7_7.tar.gz" -o "${{ runner.temp }}/jdkfile.tar.gz"
+          sha256sum --check --status "${{ runner.temp }}/jdkfile.sha256"
       
       - name: Setup JDK 
         uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
         with:
-          distribution: "jdk"
-          jdkFile: "${{ runner.temp }}/jdk.tar.gz"
+          distribution: "jdkfile"
+          jdkFile: "${{ runner.temp }}/jdkfile.tar.gz"
           java-version: "17"
       
       - name: Download Maven and verify its hash
         run: |
-          echo "900bdeeeae550d2d2b3920fe0e00e41b0069f32c019d566465015bdd1b3866395cbe016e22d95d25d51d3a5e614af2c83ec9b282d73309f644859bbad08b63db  ${{ runner.temp }}/maven.tar.gz" >> ${{ runner.temp }}/maven.sha512
-          echo {{ runner.temp }}/maven.sha512
-          curl -L "https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz" -o "${{ runner.temp }}/maven.tar.gz"
-          sha256sum --check --status "${{ runner.temp }}/maven.sha512"
+          echo "900bdeeeae550d2d2b3920fe0e00e41b0069f32c019d566465015bdd1b3866395cbe016e22d95d25d51d3a5e614af2c83ec9b282d73309f644859bbad08b63db  ${{ runner.temp }}/mavenfile.tar.gz" >> ${{ runner.temp }}/mavenfile.sha512
+          echo {{ runner.temp }}/mavenfile.sha512
+          curl -L "https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz" -o "${{ runner.temp }}/mavenfile.tar.gz"
+          sha256sum --check --status "${{ runner.temp }}/mavenfile.sha512"
           
       - name: Setup Maven
         run: |
           mkdir -p ${{ runner.temp }}/maven
-          tar -xvf ${{ runner.temp }}/maven.tar.gz -C ${{ runner.temp }}/maven
-          export M2_HOME=${{ runner.temp }}/maven
+          tar -xvf ${{ runner.temp }}/mavenfile.tar.gz -C ${{ runner.temp }}/maveninst
+          export M2_HOME=${{ runner.temp }}/maveninst
           export M2=$M2_HOME/bin 
           export MAVEN_OPTS=-Xms256m -Xmx1g 
           export PATH=$M2:$PATH

@@ -1,10 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>it.pagopa.maven</groupId>
 	<artifactId>depcheck</artifactId>
 	<version>1.0.1</version>
 	<packaging>maven-plugin</packaging>
+
 	<description>This Maven plugin generates and verifies sha256 of project dependencies</description>
+
 	<developers>
 		<developer>
 			<name>Antonio Tarricone</name>
@@ -12,6 +15,7 @@
 			<organization>PagoPA S.p.A.</organization>
 		</developer>
 	</developers>
+
 	<properties>
 		<java.version>17</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
@@ -20,6 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -81,11 +86,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
 			<plugin>
 				<groupId>it.pagopa.maven</groupId>
 				<artifactId>depcheck</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.2</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>
@@ -100,9 +104,9 @@
 					<includeParent>false</includeParent>
 				</configuration>
 			</plugin>
-			-->
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -145,6 +149,14 @@
 			<version>5.3.1</version>
 		</dependency>
 	</dependencies>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/pagopa/depcheck</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<distributionManagement>
 		<repository>
 			<id>github</id>

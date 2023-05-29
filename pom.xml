@@ -3,7 +3,7 @@
 
 	<groupId>it.pagopa.maven</groupId>
 	<artifactId>depcheck</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<packaging>maven-plugin</packaging>
 
 	<description>This Maven plugin generates and verifies sha256 of project dependencies</description>
@@ -89,7 +89,7 @@
 			<plugin>
 				<groupId>it.pagopa.maven</groupId>
 				<artifactId>depcheck</artifactId>
-				<version>1.0.2</version>
+				<version>1.0.3</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>

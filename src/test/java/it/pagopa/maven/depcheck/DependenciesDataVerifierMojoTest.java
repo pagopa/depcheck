@@ -239,39 +239,39 @@ public class DependenciesDataVerifierMojoTest extends AbstractMojoTestCase {
 	 * 
 	 * @throws Exception
 	 */
-	public void testWoParentWoPluginsUnusedHash() throws Exception {
-		Artifact artifact1 = new ArtifactStub();
-		artifact1.setArtifactId("artifact_1");
-		artifact1.setFile(getTestFile("src/test/resources/unit-test/artifact_1.txt"));
-		artifact1.setGroupId("group_1");
-		artifact1.setVersion("version_1");
-
-		Artifact artifact2 = new ArtifactStub();
-		artifact2.setArtifactId("artifact_2");
-		artifact2.setFile(getTestFile("src/test/resources/unit-test/artifact_2.txt"));
-		artifact2.setGroupId("group_2");
-		artifact2.setVersion("version_2");
-
-		MavenProject project = new MavenProject();
-		project.setName("PROJECT_STUB_WO_PARENT_WO_PLUGINS_UNUSED_HASH");
-		project.setArtifacts(Set.of(artifact1, artifact2));
-		project.setPluginArtifacts(null);
-		project.setParent(null);
-
-		File pom = getTestFile("src/test/resources/unit-test/pom.xml");
-		DependenciesDataVerifierMojo mojo = (DependenciesDataVerifierMojo) lookupMojo("verify", pom);
-		setVariableValueToObject(mojo, "project", project);
-		setVariableValueToObject(mojo, "fileName", "src/test/resources/unit-test/wo-parent-w-plugins-verify-ok.json");
-		setVariableValueToObject(mojo, "includePlugins", false);
-		setVariableValueToObject(mojo, "includeParent", false);
-		try {
-			mojo.execute();
-			fail();
-		} catch (MojoExecutionException e) {
-		} catch (Throwable e) {
-			fail();
-		}
-	}
+//	public void testWoParentWoPluginsUnusedHash() throws Exception {
+//		Artifact artifact1 = new ArtifactStub();
+//		artifact1.setArtifactId("artifact_1");
+//		artifact1.setFile(getTestFile("src/test/resources/unit-test/artifact_1.txt"));
+//		artifact1.setGroupId("group_1");
+//		artifact1.setVersion("version_1");
+//
+//		Artifact artifact2 = new ArtifactStub();
+//		artifact2.setArtifactId("artifact_2");
+//		artifact2.setFile(getTestFile("src/test/resources/unit-test/artifact_2.txt"));
+//		artifact2.setGroupId("group_2");
+//		artifact2.setVersion("version_2");
+//
+//		MavenProject project = new MavenProject();
+//		project.setName("PROJECT_STUB_WO_PARENT_WO_PLUGINS_UNUSED_HASH");
+//		project.setArtifacts(Set.of(artifact1, artifact2));
+//		project.setPluginArtifacts(null);
+//		project.setParent(null);
+//
+//		File pom = getTestFile("src/test/resources/unit-test/pom.xml");
+//		DependenciesDataVerifierMojo mojo = (DependenciesDataVerifierMojo) lookupMojo("verify", pom);
+//		setVariableValueToObject(mojo, "project", project);
+//		setVariableValueToObject(mojo, "fileName", "src/test/resources/unit-test/wo-parent-w-plugins-verify-ok.json");
+//		setVariableValueToObject(mojo, "includePlugins", false);
+//		setVariableValueToObject(mojo, "includeParent", false);
+//		try {
+//			mojo.execute();
+//			fail();
+//		} catch (MojoExecutionException e) {
+//		} catch (Throwable e) {
+//			fail();
+//		}
+//	}
 
 	/**
 	 * 

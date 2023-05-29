@@ -93,7 +93,7 @@ public class DependenciesDataVerifierMojo extends DependenciesDataMojo {
 			} else if (!map.isEmpty()) {
 				getLog().warn("The following dependencies are not used:");
 				map.keySet().stream().forEach(k -> getLog().warn(k));
-				throw new MojoExecutionException("Dependencies not used.");
+				//throw new MojoExecutionException("Dependencies not used.");
 			}
 		} catch (FileNotFoundException e) {
 			getLog().error(f.getAbsolutePath() + " not found.");

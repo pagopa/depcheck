@@ -13,6 +13,11 @@ public class Dependency implements Comparable<Dependency> {
 	/*
 	 * 
 	 */
+	private String id;
+
+	/*
+	 * 
+	 */
 	private String artifactId;
 
 	/*
@@ -37,12 +42,14 @@ public class Dependency implements Comparable<Dependency> {
 	}
 
 	/**
+	 * @param id
 	 * @param artifactId
 	 * @param groupId
 	 * @param version
 	 * @param sha256
 	 */
-	public Dependency(String artifactId, String groupId, String version, String sha256) {
+	public Dependency(String id, String artifactId, String groupId, String version, String sha256) {
+		this.id = id;
 		this.artifactId = artifactId;
 		this.groupId = groupId;
 		this.version = version;
@@ -57,24 +64,20 @@ public class Dependency implements Comparable<Dependency> {
 	}
 
 	/**
-	 * 
 	 * @return
 	 */
 	public String getId() {
-		return new StringBuilder(groupId)
-			.append(":")
-			.append(artifactId)
-			.append(":")
-			.append(version)
-			.toString();
+		return id;
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public String toString() {
-		return new StringBuilder("Dependency [artifactId=")
+		return new StringBuilder("Dependency [id=")
+			.append(id)
+			.append(", artifactId=")
 			.append(artifactId)
 			.append(", groupId=")
 			.append(groupId)
@@ -91,13 +94,16 @@ public class Dependency implements Comparable<Dependency> {
 	 */
 	@Override
 	public int compareTo(Dependency o) {
-		int c = groupId.compareTo(o.groupId);
+		int c = id.compareTo(o.id);
 		if (c == 0) {
-			c = artifactId.compareTo(o.artifactId);
+			c = groupId.compareTo(o.groupId);
 			if (c == 0) {
-				c = version.compareTo(o.version);
+				c = artifactId.compareTo(o.artifactId);
 				if (c == 0) {
-					c = sha256.compareTo(o.sha256);
+					c = version.compareTo(o.version);
+					if (c == 0) {
+						c = sha256.compareTo(o.sha256);
+					}
 				}
 			}
 		}

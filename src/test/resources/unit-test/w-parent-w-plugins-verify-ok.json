@@ -1,36 +1,42 @@
 {
   "dependencies": [
     {
+      "id": "art_1",
       "artifactId": "artifact_1",
       "groupId": "group_1",
       "version": "version_1",
       "sha256": "A-X-Jx18XkXHRJVHThrKvsWjQwBtJ7nELSQImvuKjko="
     },
     {
+      "id": "art_2",
       "artifactId": "artifact_2",
       "groupId": "group_2",
       "version": "version_2",
       "sha256": "TYB8qTVHft4XP3n_qyd7H6AxU3ukxrhMt0tz2lnRZ1w="
     },
     {
+      "id": "art_3",
       "artifactId": "artifact_3",
       "groupId": "group_3",
       "version": "version_3",
       "sha256": "_5OCEb0meAy3k3tY_5-vacMSEAtz1HHUHtDSBB5RoZA="
     },
     {
+      "id": "art_4",
       "artifactId": "artifact_4",
       "groupId": "group_4",
       "version": "version_4",
       "sha256": "Ekxz-HgCxeqhbfB7P90rlFtBaixQl5FuFqkrXiFOp-M="
     },
     {
+      "id": "art_5",
       "artifactId": "artifact_5",
       "groupId": "group_5",
       "version": "version_5",
       "sha256": "_71naveVg8qvhtWS1JWrJM_n8WyZ7XBhfFE0HsvarXE="
     },
     {
+      "id": "art_6",
       "artifactId": "artifact_6",
       "groupId": "group_6",
       "version": "version_6",

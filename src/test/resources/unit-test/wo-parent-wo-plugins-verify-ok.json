@@ -1,12 +1,14 @@
 {
   "dependencies": [
     {
+      "id": "art_1",
       "artifactId": "artifact_1",
       "groupId": "group_1",
       "version": "version_1",
       "sha256": "A-X-Jx18XkXHRJVHThrKvsWjQwBtJ7nELSQImvuKjko="
     },
     {
+      "id": "art_2",
       "artifactId": "artifact_2",
       "groupId": "group_2",
       "version": "version_2",

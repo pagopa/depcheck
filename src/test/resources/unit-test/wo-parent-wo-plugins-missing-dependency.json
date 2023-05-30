@@ -1,6 +1,7 @@
 {
   "dependencies": [
     {
+      "id": "art_1",
       "artifactId": "artifact_1",
       "groupId": "group_1",
       "version": "version_1",

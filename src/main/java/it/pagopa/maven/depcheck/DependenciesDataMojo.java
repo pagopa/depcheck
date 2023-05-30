@@ -85,16 +85,16 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 			try {
 				String sha256 = "";
 				if (a.getFile() == null) {
-					getLog().warn(String.format("SHA-256 of %s:%s:%s cannot be computed.", a.getGroupId(), a.getArtifactId(), a.getVersion()));
+					getLog().warn(String.format("SHA-256 of %s cannot be computed.", a.getId()));
 				} else {
 					sha256 = Sha256.calculate(a.getFile());
 				}
 
-				Dependency dependency = new Dependency(a.getArtifactId(), a.getGroupId(), a.getVersion(), sha256);
+				Dependency dependency = new Dependency(a.getId(), a.getArtifactId(), a.getGroupId(), a.getVersion(), sha256);
 				getLog().info(dependency.toString());
 				return dependency;
 			} catch (NoSuchAlgorithmException | IOException e) {
-				getLog().error(String.format("Error calculating SHA-256 %s:%s:%s.", a.getGroupId(), a.getArtifactId(), a.getVersion()));
+				getLog().error(String.format("Error calculating SHA-256 %s.", a.getId()));
 				getLog().error(e);
 				throw new RuntimeException(e);
 			}

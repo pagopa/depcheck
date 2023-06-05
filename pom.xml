@@ -91,6 +91,7 @@
 			<plugin>
 				<groupId>it.pagopa.maven</groupId>
 				<artifactId>depcheck</artifactId>
+				<version>1.0.5</version>
 				<executions>
 					<execution>
 						<phase>validate</phase>

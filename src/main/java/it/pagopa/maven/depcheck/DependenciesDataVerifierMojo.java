@@ -72,7 +72,7 @@ public class DependenciesDataVerifierMojo extends DependenciesDataMojo {
 				String expected = map.remove(id);
 				String found = d.getSha256();
 				if (expected == null) {
-					getLog().warn(String.format("SHA-256 of %s is missing.", id));
+					getLog().warn(String.format("SHA-256 of %s is missing. Expected %s", id, found));
 					result[0] = false;
 				} else {
 					if (found.isEmpty()) {

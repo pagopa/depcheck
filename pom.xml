@@ -17,14 +17,14 @@
 	</developers>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven-plugin-plugin.version>3.8.1</maven-plugin-plugin.version>
-		<jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+		<maven-plugin-plugin.version>3.12.0</maven-plugin-plugin.version>
+		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
 	</properties>
 
 	<build>
@@ -33,6 +33,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
 				<version>${maven-plugin-plugin.version}</version>
+				<configuration>
+					<goalPrefix>depcheck</goalPrefix>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -112,13 +115,13 @@
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-core</artifactId>
-			<version>3.9.1</version>
+			<version>3.9.6</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven.plugin-tools</groupId>
 			<artifactId>maven-plugin-annotations</artifactId>
-			<version>3.8.1</version>
+			<version>3.12.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -141,13 +144,13 @@
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-compat</artifactId>
-			<version>3.9.1</version>
+			<version>3.9.6</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>5.3.1</version>
+			<version>5.11.0</version>
 		</dependency>
 	</dependencies>
 

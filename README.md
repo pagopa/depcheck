@@ -67,5 +67,6 @@ mvn depcheck:generate
 | Name           | Type    | Description                                                                                           |
 | -------------- | ------- | ----------------------------------------------------------------------------------------------------- |
 | fileName       | String  | File with sha256 of project dependencies. It must be relative to project home (where is the pom.xml). |
+| addFileName    | String  | File with sha256 of project dependencies added manually.                                              |
 | includePlugins | boolean | If true, the plugins will be taken into account.                                                      |
 | includeParent  | boolean | If true, the dependencies of the parent project will be taken into account.                           |

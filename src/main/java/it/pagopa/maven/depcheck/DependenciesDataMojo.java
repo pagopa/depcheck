@@ -36,7 +36,7 @@ public abstract class DependenciesDataMojo extends AbstractMojo {
 	 */
 	@Parameter(property = "fileName", required = false, defaultValue = "dep-sha256.json")
 	protected String fileName;
-	
+
 	/*
 	 * The name of the file containing manually added dependencies data.
 	 */

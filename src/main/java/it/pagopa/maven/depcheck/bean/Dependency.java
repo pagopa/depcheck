@@ -69,7 +69,7 @@ public class Dependency implements Comparable<Dependency> {
 	public String getId() {
 		return id;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

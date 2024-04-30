@@ -41,7 +41,7 @@ public class DependencyTest {
 		Dependency d2 = new Dependency("0", "7", "8", "6", "5");
 		assertTrue(d1.compareTo(d2) < 0);
 	}
-	
+
 	@Test
 	public void test5() {
 		Dependency d1 = new Dependency("0", "2", "1", "3", "4");

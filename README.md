@@ -51,6 +51,10 @@ Declare in your pom.xml the depcheck plugin:
 		<fileName>dep-sha256.json</fileName>
 		<includePlugins>false</includePlugins>
 		<includeParent>false</includeParent>
+		<excludes>
+			<exampleGroupID_1>exampleArtifactID_1,exampleArtifactID_2</exampleGroupID_1>
+			<exampleGroupID_2>exampleArtifactID_1</exampleGroupID_2>
+		</excludes>
 	</configuration>
 </plugin>
 ```
@@ -64,9 +68,10 @@ mvn depcheck:generate
 ```
 
 ### Parameters
-| Name           | Type    | Description                                                                                           |
-| -------------- | ------- | ----------------------------------------------------------------------------------------------------- |
-| fileName       | String  | File with sha256 of project dependencies. It must be relative to project home (where is the pom.xml). |
-| addFileName    | String  | File with sha256 of project dependencies added manually.                                              |
-| includePlugins | boolean | If true, the plugins will be taken into account.                                                      |
-| includeParent  | boolean | If true, the dependencies of the parent project will be taken into account.                           |
+| Name           | Type                      | Description                                                                                           |
+| -------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| fileName       | String                    | File with sha256 of project dependencies. It must be relative to project home (where is the pom.xml). |
+| addFileName    | String                    | File with sha256 of project dependencies added manually.                                              |
+| includePlugins | boolean                   | If true, the plugins will be taken into account.                                                      |
+| includeParent  | boolean                   | If true, the dependencies of the parent project will be taken into account.                           |
+| excludes       | Map<String, List<String>> | List of dependencies to exclude.                                                                      |

@@ -9,7 +9,7 @@ on:
 
 jobs:
   post_merge:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     
     runs-on: ubuntu-latest
     
@@ -18,95 +18,44 @@ jobs:
       # Checkout the source code.
       #
       - name: Checkout the source code
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # 4.2.2
         with:
           token: ${{ secrets.GIT_PAT }}
           fetch-depth: 0
 
       #
+      # Install Node.
+      #
+      - name: Install Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+        with:
+          node-version: "20.18.0"
+
+      #
       # Calculate of the new version (dry-run).
       #
       - name: Calculate of the new version (dry-run)
-        uses: cycjimmy/semantic-release-action@8e58d20d0f6c8773181f43eb74d6a05e3099571d
+        uses: cycjimmy/semantic-release-action@b1b432f13acb7768e0c8efdec416d363a57546f2 # 4.1.1
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          semantic_version: 19
+          semantic_version: 21.1.1
           branch: main
           extra_plugins: |
-            @semantic-release/release-notes-generator@10.0.3
-            @semantic-release/git@10.0.1
+            @semantic-release/release-notes-generator@14.0.1 # 44c780c6f9c1bf2643fe48b6718bd9a84b820132
+            @semantic-release/git@10.0.1 # 3e934d45f97fd07a63617c0fc098c9ed3e67d97a
           dry_run: true
 
       #
-      # Cache JDK.
+      # Setup Java Build Environment.
       #
-      - name: Cache JDK
-        if: steps.semantic.outputs.new_release_published == 'true'
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: cache-jdk
+      - name: Setup Java Build Environment
+        uses: pagopa/mil-actions/setup-java-build-env@f782a1b3cdb79afda2c10007ae46b831b31fe640 # 1.1.2
         with:
-          key: OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13.tar.gz
-          path: |
-            ${{ runner.temp }}/jdk_setup.tar.gz
-            ${{ runner.temp }}/jdk_setup.sha256
+          gh_user: ${{ secrets.GIT_USER }}
+          gh_token: ${{ secrets.GIT_PAT }}
       
-      #
-      # Download JDK and verify its hash.
-      #
-      - name: Download JDK and verify its hash
-        if: steps.semantic.outputs.new_release_published == 'true' && steps.cache-jdk.outputs.cache-hit != 'true'
-        run: |
-          echo "454bebb2c9fe48d981341461ffb6bf1017c7b7c6e15c6b0c29b959194ba3aaa5  ${{ runner.temp }}/jdk_setup.tar.gz" >> ${{ runner.temp }}/jdk_setup.sha256
-          curl -L "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.2%2B13/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13.tar.gz" -o "${{ runner.temp }}/jdk_setup.tar.gz"
-          sha256sum --check --status "${{ runner.temp }}/jdk_setup.sha256"
-
-      #
-      # Setup JDK.
-      #
-      - name: Setup JDK
-        if: steps.semantic.outputs.new_release_published == 'true'
-        uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2
-        with:
-          distribution: "jdkfile"
-          jdkFile: "${{ runner.temp }}/jdk_setup.tar.gz"
-          java-version: "21"
-          cache: maven
-
-      #
-      # Cache Maven.
-      #
-      - name: Cache Maven
-        if: steps.semantic.outputs.new_release_published == 'true'
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
-        id: cache-maven
-        with:
-          key: apache-maven-3.9.6-bin.tar.gz
-          path: |
-            ${{ runner.temp }}/maven_setup.tar.gz
-            ${{ runner.temp }}/maven_setup.sha256
-
-      #
-      # Download Maven and verify its hash.
-      #
-      - name: Download Maven and verify its hash
-        if: steps.semantic.outputs.new_release_published == 'true' && steps.cache-maven.outputs.cache-hit != 'true'
-        run: |
-          echo "6eedd2cae3626d6ad3a5c9ee324bd265853d64297f07f033430755bd0e0c3a4b  ${{ runner.temp }}/maven_setup.tar.gz" >> ${{ runner.temp }}/maven_setup.sha256
-          curl -L "https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz" -o "${{ runner.temp }}/maven_setup.tar.gz"
-          sha256sum --check --status "${{ runner.temp }}/maven_setup.sha256"
-
-      #
-      # Setup Maven.
-      #
-      - name: Setup Maven
-        if: steps.semantic.outputs.new_release_published == 'true'
-        run: |
-          mkdir ${{ runner.temp }}/maven
-          tar -xvf ${{ runner.temp }}/maven_setup.tar.gz -C ${{ runner.temp }}/maven --strip-components=1
-          echo "<settings><servers><server><id>github</id><username>${{ secrets.GIT_USER }}</username><password>${{ secrets.GIT_PAT }}</password></server></servers></settings>" >> ${{ runner.temp }}/settings.xml
-
       #
       # Update of pom.xml with the new version + Git add + commit + push of the updated pom.xml.
       #
@@ -123,22 +72,22 @@ jobs:
       #
       # Calculation of the new version (again) with tagging + releasing + etc.
       #
-      - name: Calculation of the new version (again) with tagging + releasing + etc
+      - name: Calculation of the new version (w/o dry_run) and put tag
         if: steps.semantic.outputs.new_release_published == 'true'
-        uses: cycjimmy/semantic-release-action@8e58d20d0f6c8773181f43eb74d6a05e3099571d
+        uses: cycjimmy/semantic-release-action@b1b432f13acb7768e0c8efdec416d363a57546f2 # 4.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          semantic_version: 19
+          semantic_version: 21.1.1
           branch: main
           extra_plugins: |
-            @semantic-release/release-notes-generator@10.0.3
-            @semantic-release/git@10.0.1
+            @semantic-release/release-notes-generator@14.0.1 # 44c780c6f9c1bf2643fe48b6718bd9a84b820132
+            @semantic-release/git@10.0.1 # 3e934d45f97fd07a63617c0fc098c9ed3e67d97a
           dry_run: false
 
       #
       # Build and deploy.
       #
       - name: Build and deploy
-        if: steps.semantic.outputs.new_release_published == 'true'
+        if: steps.semantic.outputs.new_release_published == 'true' || github.event_name == 'workflow_dispatch'
         run: ${{ runner.temp }}/maven/bin/mvn --batch-mode deploy -s ${{ runner.temp }}/settings.xml

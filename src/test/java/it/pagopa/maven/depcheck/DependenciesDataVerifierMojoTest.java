@@ -6,6 +6,8 @@
 package it.pagopa.maven.depcheck;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -49,6 +51,38 @@ public class DependenciesDataVerifierMojoTest extends AbstractMojoTestCase {
 		setVariableValueToObject(mojo, "fileName", "src/test/resources/unit-test/wo-parent-wo-plugins-verify-ok.json");
 		setVariableValueToObject(mojo, "includePlugins", false);
 		setVariableValueToObject(mojo, "includeParent", false);
+		mojo.execute();
+	}
+
+	public void testWoParentWoPluginsWExcludesHashOk() throws Exception {
+		MyArtifactStub artifact1 = new MyArtifactStub();
+		artifact1.setId("art_1");
+		artifact1.setArtifactId("artifact_1");
+		artifact1.setFile(getTestFile("src/test/resources/unit-test/artifact_1.txt"));
+		artifact1.setGroupId("group_1");
+		artifact1.setVersion("version_1");
+
+		MyArtifactStub artifact2 = new MyArtifactStub();
+		artifact2.setId("art_2");
+		artifact2.setArtifactId("artifact_2");
+		artifact2.setFile(getTestFile("src/test/resources/unit-test/artifact_2.txt"));
+		artifact2.setGroupId("group_2");
+		artifact2.setVersion("version_2");
+
+		MavenProject project = new MavenProject();
+		project.setName("PROJECT_STUB_WO_PARENT_WO_PLUGINS_W_EXCLUDES");
+		project.setArtifacts(Set.of(artifact1, artifact2));
+		project.setPluginArtifacts(null);
+		project.setParent(null);
+
+		File pom = getTestFile("src/test/resources/unit-test/pom.xml");
+		DependenciesDataVerifierMojo mojo = (DependenciesDataVerifierMojo) lookupMojo("verify", pom);
+		setVariableValueToObject(mojo, "project", project);
+		setVariableValueToObject(mojo, "fileName", "src/test/resources/unit-test/wo-parent-wo-plugins-w-excludes-verify-ok.json");
+		setVariableValueToObject(mojo, "includePlugins", false);
+		setVariableValueToObject(mojo, "includeParent", false);
+		setVariableValueToObject(mojo, "excludes", Map.of("group_1", List.of("artifact_1")));
+
 		mojo.execute();
 	}
 

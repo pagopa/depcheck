@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    {
+      "id": "art_2",
+      "artifactId": "artifact_2",
+      "groupId": "group_2",
+      "version": "version_2",
+      "sha256": "TYB8qTVHft4XP3n_qyd7H6AxU3ukxrhMt0tz2lnRZ1w="
+    }
+  ]
+}
